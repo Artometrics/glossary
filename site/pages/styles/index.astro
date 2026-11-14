@@ -1,0 +1,137 @@
+---
+import Base from "../../layouts/Base.astro";
+import { styles } from "../../data/styles";
+
+const choices = [
+  ["sfumato", "Dissolve into the air"],
+  ["chiaroscuro", "Cut a form out of darkness"],
+  ["ukiyo-e", "Hold a flat shape with a printed line"],
+  ["bauhaus", "Sit on a grid"],
+  ["art-nouveau", "Grow, like a stem"],
+  ["brutalism", "Show the joint, the pour, the making"],
+] as const;
+
+const things = [
+  ["sfumato", "A face seen through atmosphere"],
+  ["chiaroscuro", "A body in a dark room"],
+  ["ukiyo-e", "A scene made to be printed many times"],
+  ["bauhaus", "A kit of parts anyone could assemble"],
+  ["art-nouveau", "An object meant to be touched"],
+  ["brutalism", "A structure that explains itself"],
+] as const;
+
+const files = [
+  ["sfumato", "A soft portrait study"],
+  ["chiaroscuro", "A single hard light"],
+  ["ukiyo-e", "A flat-color print"],
+  ["bauhaus", "A geometric layout"],
+  ["art-nouveau", "An ornamental frame"],
+  ["brutalism", "A raw structural page"],
+] as const;
+---
+
+<Base
+  title="Style board"
+  description="A browsable board of visual languages: a short history, the defining works, captioned plates, and starter files for an agent."
+  path="/styles"
+>
+  <div class="report report--wide glossary" data-filter-root data-filter-noun="style" data-filter-plural="styles">
+    <nav class="report-crumb" aria-label="Breadcrumb">
+      <a href="/">Glossary</a>
+      <span aria-hidden="true"> / </span>
+      <span>Style board</span>
+    </nav>
+    <header class="home-hero">
+      <p class="product-kicker">Style board</p>
+      <h1>Name it, then use it.</h1>
+      <p class="lede">
+        A style gets a short history, the people and the works that define it, a gallery of what
+        to look at, and files you can hand to an agent. Pictures are described, not embedded.
+      </p>
+    </header>
+
+    <section class="finder" id="find-your-style" aria-labelledby="finder-title">
+      <p class="product-kicker">Find your style</p>
+      <h2 id="finder-title">A placeholder for the quiz.</h2>
+      <p>
+        The finished tool asks a few questions and hands back a direction plus the starter files.
+        What is here is a sketch of that shape. It only knows the six styles on this board. A tie
+        breaks toward the edge you chose. It is not taste, and it is not advice.
+      </p>
+      <form data-finder>
+        <fieldset>
+          <legend>What should the edge do?</legend>
+          {
+            choices.map(([value, label], index) => (
+              <label>
+                <input type="radio" name="edge" value={value} required={index === 0} />
+                <span>{label}</span>
+              </label>
+            ))
+          }
+        </fieldset>
+        <fieldset>
+          <legend>What is the thing?</legend>
+          {
+            things.map(([value, label], index) => (
+              <label>
+                <input type="radio" name="thing" value={value} required={index === 0} />
+                <span>{label}</span>
+              </label>
+            ))
+          }
+        </fieldset>
+        <fieldset>
+          <legend>Which starter do you want?</legend>
+          {
+            files.map(([value, label], index) => (
+              <label>
+                <input type="radio" name="file" value={value} required={index === 0} />
+                <span>{label}</span>
+              </label>
+            ))
+          }
+        </fieldset>
+        <button class="chip chip--submit" type="submit">Suggest a direction</button>
+      </form>
+      <div class="finder-result" data-finder-result hidden></div>
+      <noscript>
+        <p>The sorter runs in the browser. With scripts off, use the grid below.</p>
+      </noscript>
+    </section>
+
+    <div class="index-tools">
+      <label class="filter-label" for="style-search">Search</label>
+      <input
+        id="style-search"
+        class="filter-search"
+        type="search"
+        data-filter-query
+        placeholder="Style, artist, material"
+        autocomplete="off"
+      />
+      <p class="result-count" data-filter-status aria-live="polite">{styles.length} styles</p>
+    </div>
+
+    <div class="card-grid">
+      {
+        styles.map((style) => (
+          <a
+            class="teaser"
+            href={`/styles/${style.slug}`}
+            data-filter-card
+            data-search={`${style.title} ${style.dates} ${style.tags.join(" ")} ${style.dek}`}
+          >
+            <span class="teaser__kind">Style</span>
+            <h2>{style.title}</h2>
+            <p class="teaser__meta">{style.dates}</p>
+            <p>{style.dek}</p>
+          </a>
+        ))
+      }
+    </div>
+    <p class="empty-note" data-filter-empty hidden>Nothing on the board matches.</p>
+  </div>
+  <script src="/js/glossary-filter.js" defer></script>
+  <script src="/js/find-style.js" defer></script>
+</Base>

@@ -1,0 +1,111 @@
+---
+import Base from "../layouts/Base.astro";
+import { entries } from "../data/entries";
+import { ENTRY_KINDS, KIND_LABEL } from "../data/types";
+
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+const present = new Set(entries.map((entry) => entry.letter));
+const groups = letters
+  .filter((letter) => present.has(letter))
+  .map((letter) => ({
+    letter,
+    entries: entries.filter((entry) => entry.letter === letter),
+  }));
+
+const kindCount = Object.fromEntries(
+  ENTRY_KINDS.map((kind) => [kind, entries.filter((entry) => entry.kind === kind).length]),
+) as Record<(typeof ENTRY_KINDS)[number], number>;
+---
+
+<Base
+  title="Encyclopedia"
+  description="An A–Z encyclopedia of people, figures, events, and context: one expert paragraph each, plus how much the record can actually carry."
+  path="/encyclopedia"
+>
+  <div class="report report--wide glossary" data-filter-root data-filter-noun="entry" data-filter-plural="entries">
+    <nav class="report-crumb" aria-label="Breadcrumb">
+      <a href="/">Glossary</a>
+      <span aria-hidden="true"> / </span>
+      <span>Encyclopedia</span>
+    </nav>
+    <header class="home-hero">
+      <p class="product-kicker">Encyclopedia</p>
+      <h1>People, figures, events, context.</h1>
+      <p class="lede">
+        Each entry is one dense reading — the mechanism, not the résumé — and a note on how much
+        we actually know. Where the paragraph is a point of view, it says so. Events and context
+        use this same template. What is filed so far is people.
+      </p>
+    </header>
+
+    <div class="index-tools">
+      <label class="filter-label" for="entry-search">Search</label>
+      <input
+        id="entry-search"
+        class="filter-search"
+        type="search"
+        data-filter-query
+        placeholder="Name, place, idea"
+        autocomplete="off"
+      />
+      <div class="chip-row" role="group" aria-label="Filter by kind">
+        <button type="button" class="chip" data-kind-choice="all" aria-pressed="true">
+          All ({entries.length})
+        </button>
+        {
+          ENTRY_KINDS.map((kind) => (
+            <button type="button" class="chip" data-kind-choice={kind} aria-pressed="false">
+              {KIND_LABEL[kind]} ({kindCount[kind]})
+            </button>
+          ))
+        }
+      </div>
+      <div class="chip-row alpha" role="group" aria-label="Filter by letter">
+        <button type="button" class="chip" data-letter-choice="all" aria-pressed="true">All</button>
+        {
+          letters.map((letter) => (
+            <button
+              type="button"
+              class="chip"
+              data-letter-choice={letter}
+              aria-pressed="false"
+              disabled={!present.has(letter)}
+            >
+              {letter}
+            </button>
+          ))
+        }
+      </div>
+      <p class="result-count" data-filter-status aria-live="polite">{entries.length} entries</p>
+    </div>
+
+    {
+      groups.map((group) => (
+        <section class="letter-group" data-letter-group={group.letter} aria-labelledby={`letter-${group.letter}`}>
+          <h2 id={`letter-${group.letter}`}>{group.letter}</h2>
+          <div class="card-grid">
+            {group.entries.map((entry) => (
+              <a
+                class="teaser"
+                href={`/entries/${entry.slug}`}
+                data-filter-card
+                data-letter={entry.letter}
+                data-kind={entry.kind}
+                data-search={`${entry.title} ${entry.sortName} ${entry.dates} ${entry.kind} ${KIND_LABEL[entry.kind]} ${entry.tags.join(" ")} ${entry.dek}`}
+              >
+                <span class="teaser__kind">{KIND_LABEL[entry.kind]}</span>
+                <h3>{entry.title}</h3>
+                <p class="teaser__meta">{entry.dates}</p>
+                <p>{entry.dek}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))
+    }
+    <p class="empty-note" data-filter-empty hidden>
+      Nothing on the shelf matches. Events and context use this same template; the entries filed so far are people.
+    </p>
+  </div>
+  <script src="/js/glossary-filter.js" defer></script>
+</Base>

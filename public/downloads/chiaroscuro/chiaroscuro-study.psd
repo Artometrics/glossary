@@ -1,0 +1,21 @@
+ARTOMETRICS GLOSSARY — PLACEHOLDER STUB
+This is not a binary Adobe Photoshop file.
+It is a text brief saved as .psd so an agent can find it next to the HTML starter.
+Do not expect Photoshop to open it as vectors or layers.
+
+Style: Chiaroscuro
+Board: /styles/chiaroscuro
+Companions: chiaroscuro-starter.html, chiaroscuro-study.ai, chiaroscuro-study.psd
+
+Document
+3000 × 2000 px. Fill the ground #070707. Do not leave it transparent.
+
+Layer stack, top to bottom
+- Label
+- Lit flesh, clipped to the beam
+- One cloth shape, also clipped to the beam
+- Beam (radial, warm white dying to nothing)
+- Ground
+
+The figure has no pixels outside the beam mask. That absence is the picture.
+No second light. No copied painting.

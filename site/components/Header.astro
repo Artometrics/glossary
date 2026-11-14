@@ -5,6 +5,20 @@ import { WORDMARKS } from "@/lib/wordmarks";
 import { PRODUCT_LABEL, NAV } from "@/lib/site.mjs";
 
 const singles = [WORDMARKS.find((mark) => mark.id === "halftone")!, ...WORDMARKS.filter((mark) => mark.id !== "halftone")];
+const path =
+  Astro.url.pathname.replace(/\.html$/, "").replace(/\/index$/, "").replace(/\/$/, "") || "/";
+
+function current(href: string): "page" | undefined {
+  if (!href.startsWith("/")) return undefined;
+  if (href === "/") return path === "/" ? "page" : undefined;
+  if (href === "/encyclopedia") {
+    return path === "/encyclopedia" || path.startsWith("/entries/") ? "page" : undefined;
+  }
+  if (href === "/styles") {
+    return path === "/styles" || path.startsWith("/styles/") ? "page" : undefined;
+  }
+  return path === href ? "page" : undefined;
+}
 ---
 
 <header class="mast">
@@ -139,7 +153,7 @@ const singles = [WORDMARKS.find((mark) => mark.id === "halftone")!, ...WORDMARKS
       <ul class="nav-list">
         {NAV.map((item) => (
           <li>
-            <a href={item.href}>
+            <a href={item.href} aria-current={current(item.href)}>
               {item.label}
               {item.descriptor ? <span>{item.descriptor}</span> : null}
             </a>
