@@ -1,23 +1,19 @@
 ---
-import Base from "../../layouts/Base.astro";
-import EntryArticle from "../../components/EntryArticle.astro";
+import Redirect from "../../components/Redirect.astro";
 import { entries } from "../../data/entries";
-import type { Entry } from "../../data/types";
 
 export function getStaticPaths() {
   return entries.map((entry) => ({
     params: { slug: entry.slug },
-    props: { entry },
+    props: { target: `/encyclopedia/${entry.slug}` },
   }));
 }
 
 interface Props {
-  entry: Entry;
+  target: string;
 }
 
-const { entry } = Astro.props;
+const { target } = Astro.props;
 ---
 
-<Base title={entry.title} description={entry.description} path={`/entries/${entry.slug}`} type="article">
-  <EntryArticle entry={entry} />
-</Base>
+<Redirect target={target} />

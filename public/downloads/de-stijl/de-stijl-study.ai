@@ -1,0 +1,21 @@
+ARTOMETRICS GLOSSARY — PLACEHOLDER STUB
+This is not a binary Adobe Illustrator file.
+It is a text brief saved as .ai so an agent can find it next to the HTML starter.
+Do not expect Illustrator to open it as vectors or layers.
+
+Style: De Stijl
+Board: /styles/de-stijl
+Companions: de-stijl-starter.html, de-stijl-study.ai, de-stijl-study.psd
+
+Artboards
+1. Equilibrium, 2400 × 2400 px. Black bars, three primary rectangles, white as a color. Asymmetric.
+2. A rejected state, same size, with one diagonal, labeled "not this" — so the rule is visible by the break. The first artboard is the study.
+
+Palette
+White #f7f4ee. Black #111111. Red #e31c23. Blue #0047ab. Yellow #f5c400.
+
+Rules
+- No diagonal on artboard 1. No circle. No type. No gradient.
+- White areas must differ in size. A centered emblem fails.
+- Do not redraw a Mondrian, a Rietveld, or the Schröder House.
+- Not the Bauhaus starter. That one may use a circle. This one may not.

@@ -3,6 +3,13 @@ import Base from "../layouts/Base.astro";
 import { entries } from "../data/entries";
 import { styles } from "../data/styles";
 import { KIND_LABEL } from "../data/types";
+
+const orderedEntries = [...entries].sort((a, b) =>
+  a.sortName.localeCompare(b.sortName, "en", { sensitivity: "base" }),
+);
+const orderedStyles = [...styles].sort((a, b) =>
+  a.title.localeCompare(b.title, "en", { sensitivity: "base" }),
+);
 ---
 
 <Base
@@ -29,8 +36,8 @@ import { KIND_LABEL } from "../data/types";
     </div>
     <div class="card-grid">
       {
-        entries.map((entry) => (
-          <a class="teaser" href={`/entries/${entry.slug}`}>
+        orderedEntries.map((entry) => (
+          <a class="teaser" href={`/encyclopedia/${entry.slug}`}>
             <span class="teaser__kind">{KIND_LABEL[entry.kind]}</span>
             <h3>{entry.title}</h3>
             <p class="teaser__meta">{entry.dates}</p>
@@ -46,7 +53,7 @@ import { KIND_LABEL } from "../data/types";
     </div>
     <div class="card-grid">
       {
-        styles.map((style) => (
+        orderedStyles.map((style) => (
           <a class="teaser" href={`/styles/${style.slug}`}>
             <span class="teaser__kind">Style</span>
             <h3>{style.title}</h3>
@@ -56,5 +63,14 @@ import { KIND_LABEL } from "../data/types";
         ))
       }
     </div>
+
+    <div class="section-head">
+      <h2>Questions</h2>
+      <a href="/questions">What people ask</a>
+    </div>
+    <p class="lede">
+      Short answers to the questions the entries keep getting — the ear, the night watch, the
+      inventions that were not inventions. The paragraph says when it is a reading.
+    </p>
   </div>
 </Base>

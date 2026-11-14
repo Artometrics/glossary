@@ -12,7 +12,7 @@ function current(href: string): "page" | undefined {
   if (!href.startsWith("/")) return undefined;
   if (href === "/") return path === "/" ? "page" : undefined;
   if (href === "/encyclopedia") {
-    return path === "/encyclopedia" || path.startsWith("/entries/") ? "page" : undefined;
+    return path === "/encyclopedia" || path.startsWith("/encyclopedia/") ? "page" : undefined;
   }
   if (href === "/styles") {
     return path === "/styles" || path.startsWith("/styles/") ? "page" : undefined;

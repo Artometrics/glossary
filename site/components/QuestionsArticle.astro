@@ -1,0 +1,56 @@
+---
+import { questions, questionsNote } from "../data/questions";
+---
+
+<article class="report wrap wrap--measure">
+  <nav class="report-crumb" aria-label="Breadcrumb">
+    <a href="/">Glossary</a>
+    <span aria-hidden="true"> / </span>
+    <span>Questions</span>
+  </nav>
+  <header class="report-head">
+    <p class="report-kicker">Questions</p>
+    <h1>What people actually ask.</h1>
+    <p class="report-dek">
+      Short answers, same voice as the entries. The popular version first, then the part an expert would not let you leave with. Where this is a reading, it says so.
+    </p>
+    <p class="report-byline">Artometrics Glossary</p>
+  </header>
+  <nav class="toc" aria-label="Questions">
+    <h2>On this page</h2>
+    <ol>
+      {
+        questions.map((question) => (
+          <li>
+            <a href={`#${question.id}`}>{question.ask}</a>
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
+  <div class="prose">
+    {
+      questions.map((question) => (
+        <section class="qa" id={question.id} aria-labelledby={`${question.id}-title`}>
+          <h2 id={`${question.id}-title`}>{question.ask}</h2>
+          <div set:html={question.answer} />
+        </section>
+      ))
+    }
+  </div>
+  <section class="sources" aria-labelledby="sources-title">
+    <h2 id="sources-title">Sources / how much we actually know</h2>
+    <div set:html={questionsNote} />
+  </section>
+  <nav class="report-related" aria-label="Related">
+    <h2>See also</h2>
+    <a href="/encyclopedia">
+      Encyclopedia
+      <span class="related-note">The longer paragraph behind each of these answers.</span>
+    </a>
+    <a href="/styles">
+      Style board
+      <span class="related-note">The visual languages the short answers keep pointing at.</span>
+    </a>
+  </nav>
+</article>

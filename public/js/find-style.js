@@ -9,6 +9,12 @@
     bauhaus: "Bauhaus",
     "art-nouveau": "Art Nouveau",
     brutalism: "Brutalism",
+    impressionism: "Impressionism",
+    cubism: "Cubism",
+    surrealism: "Surrealism",
+    "abstract-expressionism": "Abstract Expressionism",
+    "pop-art": "Pop Art",
+    "de-stijl": "De Stijl",
   };
 
   form.addEventListener("submit", function (event) {
@@ -39,7 +45,7 @@
     p.textContent =
       "Placeholder result: " +
       name +
-      ". A direction, not a verdict. This sorter only knows the six styles on the board." +
+      ". A direction, not a verdict. This sorter only knows the styles on the board." +
       split;
     var link = document.createElement("a");
     link.href = "/styles/" + winner;

@@ -3,13 +3,16 @@ import Base from "../layouts/Base.astro";
 import { entries } from "../data/entries";
 import { ENTRY_KINDS, KIND_LABEL } from "../data/types";
 
+const ordered = [...entries].sort((a, b) =>
+  a.sortName.localeCompare(b.sortName, "en", { sensitivity: "base" }),
+);
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-const present = new Set(entries.map((entry) => entry.letter));
+const present = new Set(ordered.map((entry) => entry.letter));
 const groups = letters
   .filter((letter) => present.has(letter))
   .map((letter) => ({
     letter,
-    entries: entries.filter((entry) => entry.letter === letter),
+    entries: ordered.filter((entry) => entry.letter === letter),
   }));
 
 const kindCount = Object.fromEntries(
@@ -33,8 +36,9 @@ const kindCount = Object.fromEntries(
       <h1>People, figures, events, context.</h1>
       <p class="lede">
         Each entry is one dense reading — the mechanism, not the résumé — and a note on how much
-        we actually know. Where the paragraph is a point of view, it says so. Events and context
-        use this same template. What is filed so far is people.
+        we actually know. Where the paragraph is a point of view, it says so. People, events, and
+        context share the template. This is a start on a longer shelf.
+        <a href="/questions">Questions people actually ask</a> are answered in the same voice.
       </p>
     </header>
 
@@ -87,7 +91,7 @@ const kindCount = Object.fromEntries(
             {group.entries.map((entry) => (
               <a
                 class="teaser"
-                href={`/entries/${entry.slug}`}
+                href={`/encyclopedia/${entry.slug}`}
                 data-filter-card
                 data-letter={entry.letter}
                 data-kind={entry.kind}
@@ -104,7 +108,7 @@ const kindCount = Object.fromEntries(
       ))
     }
     <p class="empty-note" data-filter-empty hidden>
-      Nothing on the shelf matches. Events and context use this same template; the entries filed so far are people.
+      Nothing on the shelf matches.
     </p>
   </div>
   <script src="/js/glossary-filter.js" defer></script>

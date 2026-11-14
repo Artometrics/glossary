@@ -1,0 +1,24 @@
+---
+import { SITE } from "@/lib/site.mjs";
+
+interface Props {
+  target: string;
+}
+
+const { target } = Astro.props;
+const canonical = `${SITE}${target}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting to {target}</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href={canonical} />
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+  </head>
+  <body>
+    <p><a href={target}>Continue to {target}</a>.</p>
+  </body>
+</html>

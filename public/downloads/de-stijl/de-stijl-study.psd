@@ -1,0 +1,23 @@
+ARTOMETRICS GLOSSARY — PLACEHOLDER STUB
+This is not a binary Adobe Photoshop file.
+It is a text brief saved as .psd so an agent can find it next to the HTML starter.
+Do not expect Photoshop to open it as vectors or layers.
+
+Style: De Stijl
+Board: /styles/de-stijl
+Companions: de-stijl-starter.html, de-stijl-study.ai, de-stijl-study.psd
+
+Document
+2400 × 2400 px, 300 ppi. Ground #f7f4ee, which is a color, not "empty."
+
+Layer stack, top to bottom
+- Black bars, 24 px, horizontal and vertical only
+- Yellow rectangle
+- Blue rectangle
+- Red rectangle
+- Ground
+
+Rules
+Bars sit on top of the color, as intervals, not as outlines drawn around each block.
+No diagonal layer. No circle. No texture. No photograph of a building.
+Shift the bars until the white counts. Do not center the set.
