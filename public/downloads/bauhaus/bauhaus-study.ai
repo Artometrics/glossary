@@ -1,0 +1,20 @@
+ARTOMETRICS GLOSSARY — PLACEHOLDER STUB
+This is not a binary Adobe Illustrator file.
+It is a text brief saved as .ai so an agent can find it next to the HTML starter.
+Do not expect Illustrator to open it as vectors or layers.
+
+Style: Bauhaus
+Board: /styles/bauhaus
+Companions: bauhaus-starter.html, bauhaus-study.ai, bauhaus-study.psd
+
+Artboards
+1. A horizontal board, 2400 × 1600 px, ground #f3f1ea.
+2. A modular grid, 12 columns. Black bars mark two of the divisions.
+3. One red circle, one blue rectangle, one yellow bar. All of them snap to the grid.
+4. One word, lowercase, a plain grotesque: "study". No script, no outline.
+
+Rules
+No gradients, no shadows, no texture.
+Do not imitate a specific Bayer, Moholy-Nagy, or Albers sheet.
+Note in the margin: Universal (1925) was an experiment. Helvetica (1957) is Swiss, not Bauhaus.
+Colors: #e31c23, #0047ab, #f5c400, #111111.

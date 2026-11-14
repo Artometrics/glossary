@@ -1,0 +1,18 @@
+ARTOMETRICS GLOSSARY — PLACEHOLDER STUB
+This is not a binary Adobe Illustrator file.
+It is a text brief saved as .ai so an agent can find it next to the HTML starter.
+Do not expect Illustrator to open it as vectors or layers.
+
+Style: Ukiyo-e
+Board: /styles/ukiyo-e
+Companions: ukiyo-e-starter.html, ukiyo-e-study.ai, ukiyo-e-study.psd
+
+Artboards
+1. A vertical sheet, 2:3, paper #f4efe2, with a thin key border.
+2. Flat shapes only: one red cone, one blue band, one green bar, one black arc. Crop at least one shape with the edge.
+3. Two small registration squares (kentō), so the sheet reads as a print, not a painting.
+4. Offset one color shape by 3 px from its keyline, once, on purpose.
+
+Rules
+No gradients. No faces copied from a known print. No Great Wave, no Red Fuji, no Hiroshige rain.
+Limited palette: #161616, #123a78, #c83b2f, #2f6b4f, paper #f4efe2.

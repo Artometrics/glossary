@@ -1,0 +1,23 @@
+---
+import Base from "../../layouts/Base.astro";
+import StyleArticle from "../../components/StyleArticle.astro";
+import { styles } from "../../data/styles";
+import type { StyleBoard } from "../../data/types";
+
+export function getStaticPaths() {
+  return styles.map((style) => ({
+    params: { slug: style.slug },
+    props: { style },
+  }));
+}
+
+interface Props {
+  style: StyleBoard;
+}
+
+const { style } = Astro.props;
+---
+
+<Base title={style.title} description={style.description} path={`/styles/${style.slug}`} type="article">
+  <StyleArticle style={style} />
+</Base>

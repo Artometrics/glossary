@@ -1,0 +1,20 @@
+ARTOMETRICS GLOSSARY — PLACEHOLDER STUB
+This is not a binary Adobe Photoshop file.
+It is a text brief saved as .psd so an agent can find it next to the HTML starter.
+Do not expect Photoshop to open it as vectors or layers.
+
+Style: Ukiyo-e
+Board: /styles/ukiyo-e
+Companions: ukiyo-e-starter.html, ukiyo-e-study.ai, ukiyo-e-study.psd
+
+Document
+2400 × 3600 px. Paper fill #f4efe2. No transparency.
+
+Layer stack, top to bottom — each color is its own block
+- Keyline, 100% black #161616, even weight
+- Red shape #c83b2f
+- Blue shape #123a78
+- Green shape #2f6b4f
+- Paper
+
+One color layer is nudged 3 px off the key. Do not add shading, texture overlays, or a scanned print underneath.

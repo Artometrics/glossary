@@ -1,0 +1,21 @@
+ARTOMETRICS GLOSSARY — PLACEHOLDER STUB
+This is not a binary Adobe Illustrator file.
+It is a text brief saved as .ai so an agent can find it next to the HTML starter.
+Do not expect Illustrator to open it as vectors or layers.
+
+Style: Sfumato
+Board: /styles/sfumato
+Companions: sfumato-starter.html, sfumato-study.ai, sfumato-study.psd
+
+Artboards
+1. Portrait study, 2400 × 3000 px. One invented head. No contour stroke. Edge made only of stacked transparent gradients.
+2. Comparison, same size. Left: the same head with a 2 px outline. Right: the sfumato version. Label both in a plain sans.
+
+Palette
+Warm ground #1a120c. Flesh built from #c4a484, #8d6b58, #efe3c8. Shadow #3a2a22. Distance #6e7c74.
+
+Rules
+- No stroke on the form.
+- Opacity builds in thin layers, about 8–15%, softer at the boundary than at the center.
+- Ground meets the form in a gradient, not a cutout.
+- Do not reproduce any existing painting. Invent the head.

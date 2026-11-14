@@ -1,0 +1,44 @@
+---
+import type { Entry } from "../data/types";
+import { KIND_LABEL } from "../data/types";
+
+interface Props {
+  entry: Entry;
+}
+
+const { entry } = Astro.props;
+---
+
+<article class="report wrap wrap--measure">
+  <nav class="report-crumb" aria-label="Breadcrumb">
+    <a href="/">Glossary</a>
+    <span aria-hidden="true"> / </span>
+    <a href="/encyclopedia">Encyclopedia</a>
+    <span aria-hidden="true"> / </span>
+    <span>{entry.title}</span>
+  </nav>
+  <header class="report-head">
+    <p class="report-kicker">Encyclopedia · {KIND_LABEL[entry.kind]}</p>
+    <h1>{entry.title}</h1>
+    <p class="report-dek">{entry.dek}</p>
+    <p class="report-byline">{entry.dates} · Artometrics Glossary</p>
+  </header>
+  <div class="prose" set:html={entry.body} />
+  <section class="sources" aria-labelledby="sources-title">
+    <h2 id="sources-title">Sources / how much we actually know</h2>
+    <div set:html={entry.sources} />
+  </section>
+  {
+    entry.related.length > 0 && (
+      <nav class="report-related" aria-label="Related">
+        <h2>See also</h2>
+        {entry.related.map((item) => (
+          <a href={item.href}>
+            {item.label}
+            <span class="related-note">{item.note}</span>
+          </a>
+        ))}
+      </nav>
+    )
+  }
+</article>

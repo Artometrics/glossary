@@ -1,0 +1,87 @@
+---
+import type { StyleBoard } from "../data/types";
+
+interface Props {
+  style: StyleBoard;
+}
+
+const { style } = Astro.props;
+---
+
+<article class="report wrap wrap--measure">
+  <nav class="report-crumb" aria-label="Breadcrumb">
+    <a href="/">Glossary</a>
+    <span aria-hidden="true"> / </span>
+    <a href="/styles">Style board</a>
+    <span aria-hidden="true"> / </span>
+    <span>{style.title}</span>
+  </nav>
+  <header class="report-head">
+    <p class="report-kicker">Style</p>
+    <h1>{style.title}</h1>
+    <p class="report-dek">{style.dek}</p>
+    <p class="report-byline">{style.dates} · Artometrics Glossary</p>
+  </header>
+
+  <div class="prose">
+    <h2 id="history">History</h2>
+    <div set:html={style.history} />
+    <h2 id="figures">Top figures and works</h2>
+    <div set:html={style.figures} />
+    <h2 id="gallery">Gallery</h2>
+    <p>
+      Plates are described, not embedded. Nothing on this board hotlinks a painting, a print, or a
+      photograph of a building. The caption says what should sit in the frame when a rights-cleared
+      image is added.
+    </p>
+  </div>
+
+  <div class="gallery-grid">
+    {
+      style.plates.map((plate) => (
+        <figure class="plate">
+          <div class="ph" aria-hidden="true">Placeholder</div>
+          <figcaption>
+            <span class="plate__label">{plate.label}</span>
+            {plate.caption}
+          </figcaption>
+        </figure>
+      ))
+    }
+  </div>
+
+  <div class="prose">
+    <h2 id="files">Downloads</h2>
+    <p>
+      Three files, meant to be handed to an agent. The HTML starter is a real page: an original
+      study of the formal move, not a copy of any work named above. The <code>.ai</code> and
+      <code>.psd</code> files are labeled text stubs. They are not binary Adobe files and will not
+      open as one. They describe the artboard, the layer stack, and the rules.
+    </p>
+  </div>
+
+  <div class="file-grid" aria-label="Downloads">
+    {
+      style.downloads.map((file) => (
+        <a class="ph file-card" href={file.href} download={file.download ? "" : undefined}>
+          <strong>{file.filename}</strong>
+          {file.note}
+        </a>
+      ))
+    }
+  </div>
+
+  {
+    style.related.length > 0 && (
+      <nav class="report-related" aria-label="Related">
+        <h2>See also</h2>
+        {style.related.map((item) => (
+          <a href={item.href}>
+            {item.label}
+            <span class="related-note">{item.note}</span>
+          </a>
+        ))}
+      </nav>
+    )
+  }
+</article>
