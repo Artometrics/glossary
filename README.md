@@ -9,8 +9,9 @@ Encyclopedia and style board for `glossary.artometrics.com`. Astro 5 static expo
 
 ## What is on the shelf
 
-- **Encyclopedia** (`/encyclopedia`) — A–Z, search, and kind filters (people, events, context). Entries live in `site/data/entries.ts`. One dense paragraph, then “Sources / how much we actually know.” Pages generate at `/entries/{slug}`.
-- **Style board** (`/styles`) — searchable grid, plus a placeholder “Find your style” sorter that only knows the styles on the board. Boards live in `site/data/styles.ts`. Galleries are captioned placeholders. No artwork is embedded.
+- **Encyclopedia** (`/encyclopedia`) — A–Z, search, and kind filters (people, events, context). Entries live in `site/data/entries.ts` and `site/data/entries-more.ts` and are merged into one list. One dense paragraph, then “Sources / how much we actually know.” Pages generate at `/encyclopedia/{slug}`. Old `/entries` and `/entries/{slug}` URLs redirect there (meta refresh in the static build, 301 in `firebase.json`).
+- **Questions** (`/questions`) — short answers to questions people actually ask, in the same voice, with one sources note for the page.
+- **Style board** (`/styles`) — searchable grid, plus a placeholder “Find your style” sorter that only knows the styles on the board. Boards live in `site/data/styles.ts` and `site/data/styles-more.ts`. Galleries are captioned placeholders. No artwork is embedded.
 - **Downloads** — `public/downloads/{slug}/`. Each style has an HTML/CSS starter (a real, original study) and `.ai` / `.psd` text stubs. The stubs are not binary Adobe files. They are labeled as briefs an agent can read.
 
 To add an entry or a style, add an object to the data file. Slugs become URLs with no trailing slash. If a style gets starter files, put them in `public/downloads/{slug}/` and point `downloads` at those paths.

@@ -2,6 +2,8 @@
 import Base from "../../layouts/Base.astro";
 import { styles } from "../../data/styles";
 
+const ordered = [...styles].sort((a, b) => a.title.localeCompare(b.title, "en", { sensitivity: "base" }));
+
 const choices = [
   ["sfumato", "Dissolve into the air"],
   ["chiaroscuro", "Cut a form out of darkness"],
@@ -9,6 +11,12 @@ const choices = [
   ["bauhaus", "Sit on a grid"],
   ["art-nouveau", "Grow, like a stem"],
   ["brutalism", "Show the joint, the pour, the making"],
+  ["impressionism", "Break the color into separate touches"],
+  ["cubism", "Show more than one side at once"],
+  ["surrealism", "Make one familiar thing impossible"],
+  ["abstract-expressionism", "Let the mark be the whole event"],
+  ["pop-art", "Start from a picture everyone has seen"],
+  ["de-stijl", "Use only the right angle and the primary"],
 ] as const;
 
 const things = [
@@ -18,6 +26,12 @@ const things = [
   ["bauhaus", "A kit of parts anyone could assemble"],
   ["art-nouveau", "An object meant to be touched"],
   ["brutalism", "A structure that explains itself"],
+  ["impressionism", "A moment of weather, looked at quickly"],
+  ["cubism", "An object taken apart"],
+  ["surrealism", "A scene that cannot exist"],
+  ["abstract-expressionism", "A field with no depicted subject"],
+  ["pop-art", "A product, a face, a panel from print"],
+  ["de-stijl", "A rectangle that is already the picture"],
 ] as const;
 
 const files = [
@@ -27,6 +41,12 @@ const files = [
   ["bauhaus", "A geometric layout"],
   ["art-nouveau", "An ornamental frame"],
   ["brutalism", "A raw structural page"],
+  ["impressionism", "A study in broken color"],
+  ["cubism", "A faceted still life"],
+  ["surrealism", "A precise impossible object"],
+  ["abstract-expressionism", "An all-over field"],
+  ["pop-art", "A flat repeated image"],
+  ["de-stijl", "A primary-color asymmetric grid"],
 ] as const;
 ---
 
@@ -55,8 +75,8 @@ const files = [
       <h2 id="finder-title">A placeholder for the quiz.</h2>
       <p>
         The finished tool asks a few questions and hands back a direction plus the starter files.
-        What is here is a sketch of that shape. It only knows the six styles on this board. A tie
-        breaks toward the edge you chose. It is not taste, and it is not advice.
+        What is here is a sketch of that shape. It only knows the {styles.length} styles on this board.
+        A tie breaks toward the edge you chose. It is not taste, and it is not advice.
       </p>
       <form data-finder>
         <fieldset>
@@ -115,7 +135,7 @@ const files = [
 
     <div class="card-grid">
       {
-        styles.map((style) => (
+        ordered.map((style) => (
           <a
             class="teaser"
             href={`/styles/${style.slug}`}

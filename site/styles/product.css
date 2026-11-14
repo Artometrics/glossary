@@ -484,3 +484,16 @@ html[data-theme="light"] .takeaways {
 html[data-theme="light"] .nav-overlay__title {
   color: #14110e;
 }
+
+.qa {
+  margin: 0 0 1.5rem;
+}
+
+.qa + .qa {
+  border-top: 1px solid var(--rule);
+  padding-top: 1.25rem;
+}
+
+.qa h2 {
+  scroll-margin-top: 1rem;
+}

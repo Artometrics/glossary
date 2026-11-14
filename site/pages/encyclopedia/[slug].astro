@@ -1,0 +1,23 @@
+---
+import Base from "../../layouts/Base.astro";
+import EntryArticle from "../../components/EntryArticle.astro";
+import { entries } from "../../data/entries";
+import type { Entry } from "../../data/types";
+
+export function getStaticPaths() {
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: Entry;
+}
+
+const { entry } = Astro.props;
+---
+
+<Base title={entry.title} description={entry.description} path={`/encyclopedia/${entry.slug}`} type="article">
+  <EntryArticle entry={entry} />
+</Base>

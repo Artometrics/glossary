@@ -8,6 +8,18 @@
     ],
     "cleanUrls": true,
     "trailingSlash": false,
+    "redirects": [
+      {
+        "source": "/entries",
+        "destination": "/encyclopedia",
+        "type": 301
+      },
+      {
+        "source": "/entries/:slug",
+        "destination": "/encyclopedia/:slug",
+        "type": 301
+      }
+    ],
     "headers": [
       {
         "source": "**",
