@@ -1,0 +1,142 @@
+---
+import "../styles/site.css";
+import "../styles/product.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { jsonForScript } from "../lib/json-script";
+import { WORDMARKS } from "@/lib/wordmarks";
+import { SITE, SITE_NAME, PRODUCT_LABEL } from "@/lib/site.mjs";
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  image?: string;
+  type?: "website" | "article";
+}
+
+const {
+  title,
+  description,
+  path,
+  image = "/images/brand/og-default.png",
+  type = "website",
+} = Astro.props;
+
+const monograms = Object.fromEntries(
+  WORDMARKS.map((mark) => [
+    mark.id,
+    { night: mark.monoNight, day: mark.monoDay, appleNight: mark.appleNight, appleDay: mark.appleDay },
+  ]),
+);
+
+const fullTitle = title.includes("Artometrics") ? title : `${title} · ${SITE_NAME}`;
+const url = `${SITE}${path.startsWith("/") ? path : `/${path}`}`;
+const img = image.startsWith("http") ? image : `${SITE}${image}`;
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark" data-logo="halftone" data-logo-form="wordmark">
+  <head>
+    <meta charset="utf-8" />
+    <script is:inline>
+      (function () {
+        try {
+          var root = document.documentElement;
+          var theme = localStorage.getItem("artometrics-theme");
+          var logo = localStorage.getItem("artometrics-logo");
+          var form = localStorage.getItem("artometrics-logo-form");
+          var allowed = { white: 1, svg: 1, halftone: 1, d01: 1, d02: 1, d03: 1, d04: 1, d05: 1, d06: 1, d07: 1, d08: 1 };
+          if (theme !== "light") theme = "dark";
+          if (!allowed[logo]) logo = "halftone";
+          if (form !== "single") form = "wordmark";
+          root.setAttribute("data-theme", theme);
+          root.setAttribute("data-logo", logo);
+          root.setAttribute("data-logo-form", form);
+          root.style.colorScheme = theme === "light" ? "light" : "dark";
+        } catch (e) {}
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href={url} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    <meta property="og:type" content={type} />
+    <meta property="og:image" content={img} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@artometrics" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={img} />
+    <link id="site-favicon" rel="icon" type="image/png" sizes="32x32" href={monograms.halftone.night} />
+    <link id="site-apple" rel="apple-touch-icon" href={monograms.halftone.appleNight} />
+    <script type="application/json" id="mono-map" set:html={jsonForScript(monograms)} />
+    <script is:inline>
+      (function () {
+        var node = document.getElementById("mono-map");
+        var map = node ? JSON.parse(node.textContent || "{}") : {};
+        var root = document.documentElement;
+        var id = root.getAttribute("data-logo") || "halftone";
+        var hit = map[id] || map.white;
+        if (!hit) return;
+        var dark = root.getAttribute("data-theme") !== "light";
+        var icon = document.getElementById("site-favicon");
+        var apple = document.getElementById("site-apple");
+        if (icon) icon.href = dark ? hit.night : hit.day;
+        if (apple) apple.href = dark ? hit.appleNight : hit.appleDay;
+      })();
+    </script>
+    <link rel="stylesheet" href="/css/house-style.css" />
+    <link rel="stylesheet" href="/css/system.css" />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      const overlay = document.getElementById("nav-overlay");
+      const openBtn = document.getElementById("open-menu");
+      const closeBtn = document.getElementById("close-menu");
+      function placeOverlay() {
+        if (!overlay || overlay.hidden) return;
+        const viewport = window.visualViewport;
+        if (!viewport) return;
+        const keyboard = window.innerHeight - viewport.height > 120;
+        overlay.classList.toggle("nav-overlay--keyboard", keyboard);
+        overlay.style.top = `${viewport.offsetTop}px`;
+        overlay.style.height = `${viewport.height}px`;
+      }
+      function openMenu() {
+        if (!overlay) return;
+        overlay.hidden = false;
+        document.body.style.overflow = "hidden";
+        placeOverlay();
+      }
+      function closeMenu() {
+        if (!overlay) return;
+        overlay.hidden = true;
+        overlay.classList.remove("nav-overlay--keyboard");
+        overlay.style.top = "";
+        overlay.style.height = "";
+        document.body.style.overflow = "";
+        openBtn?.focus();
+      }
+      window.visualViewport?.addEventListener("resize", placeOverlay);
+      window.visualViewport?.addEventListener("scroll", placeOverlay);
+      openBtn?.addEventListener("click", openMenu);
+      closeBtn?.addEventListener("click", closeMenu);
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && overlay && !overlay.hidden) closeMenu();
+      });
+    </script>
+  </body>
+</html>

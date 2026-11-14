@@ -1,0 +1,227 @@
+/* Product-specific layout on top of the shared Artometrics shell. */
+
+.product-kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pink-text);
+  margin: 2px 0 0;
+}
+
+.wordmark .product-kicker {
+  text-align: center;
+}
+
+.home-hero {
+  padding: 2.2rem 0 1.4rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.home-hero h1 {
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  font-size: clamp(2.4rem, 8vw, 4.6rem);
+  line-height: 0.95;
+  margin: 0.35rem 0 0.8rem;
+  color: var(--cream);
+}
+
+.home-hero .lede {
+  font-size: 1.15rem;
+  max-width: 46rem;
+}
+
+.card-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin: 1.5rem 0 2.5rem;
+}
+
+.teaser {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid var(--rule);
+  padding: 1.1rem 1.15rem 1.2rem;
+  background: #070808;
+}
+
+.teaser:hover {
+  color: inherit;
+  border-color: var(--subtle);
+}
+
+.teaser__kind {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pink-text);
+}
+
+.teaser h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  font-size: 1.7rem;
+  margin: 0.45rem 0 0.5rem;
+  color: var(--cream);
+}
+
+.teaser p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.teaser--placeholder {
+  opacity: 0.7;
+  border-style: dashed;
+}
+
+.takeaways {
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--pink);
+  background: #0b0d0c;
+  padding: 1.05rem 1.25rem 1.15rem;
+  margin: 1.4rem 0 1.6rem;
+}
+
+.takeaways h2 {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pink-text);
+  margin: 0 0 0.7rem;
+}
+
+.takeaways ul {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.takeaways li {
+  margin: 0.35rem 0;
+}
+
+.toc {
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 1rem 0 1.15rem;
+  margin: 0 0 1.6rem;
+}
+
+.toc h2 {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--subtle);
+  margin: 0 0 0.6rem;
+}
+
+.toc ol {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.toc a {
+  color: var(--blue-text);
+  text-decoration: none;
+}
+
+.toc a:hover { color: var(--cream); }
+
+.sources {
+  border-top: 1px solid var(--rule);
+  margin-top: 2.4rem;
+  padding-top: 1.2rem;
+}
+
+.sources h2 {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--subtle);
+  margin: 0 0 0.6rem;
+}
+
+.gallery-grid,
+.file-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  margin: 0.8rem 0 1.6rem;
+}
+
+.ph {
+  aspect-ratio: 4 / 5;
+  border: 1px dashed var(--rule);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 12px;
+  color: var(--subtle);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: #070808;
+}
+
+.file-card {
+  aspect-ratio: auto;
+  min-height: 7rem;
+  text-decoration: none;
+  color: var(--muted);
+}
+
+.file-card strong {
+  display: block;
+  color: var(--cream);
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  letter-spacing: 0;
+  text-transform: none;
+  margin-bottom: 0.35rem;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 2rem 0 0.8rem;
+}
+
+.section-head h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  font-size: 1.8rem;
+  margin: 0;
+  color: var(--cream);
+}
+
+.section-head p {
+  margin: 0;
+  color: var(--subtle);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.nav-overlay__title {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-align: center;
+}

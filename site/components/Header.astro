@@ -1,0 +1,282 @@
+---
+import { TAGLINE } from "@/lib/tagline.mjs";
+import { jsonForScript } from "../lib/json-script";
+import { WORDMARKS } from "@/lib/wordmarks";
+import { PRODUCT_LABEL, NAV } from "@/lib/site.mjs";
+
+const singles = [WORDMARKS.find((mark) => mark.id === "halftone")!, ...WORDMARKS.filter((mark) => mark.id !== "halftone")];
+---
+
+<header class="mast">
+  <div class="dateline" data-dateline></div>
+  <script is:inline>
+    (function () {
+      try {
+        var el = document.querySelector("[data-dateline]");
+        if (!el) return;
+        el.textContent = new Date().toLocaleDateString("en-US", {
+          weekday: "short",
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+          timeZone: "America/Los_Angeles",
+        });
+        el.setAttribute("data-dateline-live", "");
+      } catch (e) {}
+    })();
+  </script>
+  <div class="wrap mast-row">
+    <div class="mast-side">
+      <button class="icon-btn" id="open-menu" type="button" aria-expanded="false" aria-controls="nav-overlay">
+        <span class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Open menu</span>
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75">
+          <path d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+      </button>
+    </div>
+    <a class="wordmark" href="/" aria-label={`${PRODUCT_LABEL} home`}>
+      <span class="wordmark__plate">
+        <img
+          id="site-wordmark"
+          alt=""
+          src="/images/brand/wordmarks/wordmark-halftone.webp"
+          width="600"
+          height="124"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </span>
+      <span class="wordmark__tag">{TAGLINE}</span>
+      <span class="product-kicker">{PRODUCT_LABEL}</span>
+    </a>
+    <div class="mast-side mast-side--end">
+      <button
+        class="icon-btn"
+        id="appearance-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="appearance-panel"
+        aria-label="Appearance"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M12 2.5a9.5 9.5 0 1 0 0 19 9.5 9.5 0 0 0 0-19zm0 2a7.5 7.5 0 0 1 0 15V4.5z"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <script type="application/json" id="wordmark-catalog" set:html={jsonForScript(WORDMARKS)} />
+  <script is:inline>
+    (function () {
+      var node = document.getElementById("wordmark-catalog");
+      var catalog = node ? JSON.parse(node.textContent || "[]") : [];
+      var root = document.documentElement;
+      var key = root.getAttribute("data-logo") || "halftone";
+      var hit = catalog[0];
+      for (var i = 0; i < catalog.length; i++) if (catalog[i].id === key) hit = catalog[i];
+      var img = document.getElementById("site-wordmark");
+      var dark = root.getAttribute("data-theme") !== "light";
+      var form = root.getAttribute("data-logo-form") || "wordmark";
+      if (img && hit) {
+        img.src = form === "wordmark" ? hit.src : (dark ? hit.appleNight : hit.appleDay);
+      }
+    })();
+  </script>
+  <div class="appearance" id="appearance-panel" hidden>
+    <div class="wrap">
+      <p class="appearance__label" id="appearance-mode-label">Color</p>
+      <div class="appearance__modes" role="radiogroup" aria-labelledby="appearance-mode-label">
+        <button type="button" role="radio" data-theme-choice="dark" aria-checked="true">Night</button>
+        <button type="button" role="radio" data-theme-choice="light" aria-checked="false">Day</button>
+      </div>
+      <p class="appearance__label" id="appearance-logo-label">Logo</p>
+      <div class="appearance__form" role="radiogroup" aria-labelledby="appearance-logo-label">
+        <button type="button" role="radio" data-logo-form-choice="single" aria-checked="true">Singles</button>
+        <button type="button" role="radio" data-logo-form-choice="wordmark" aria-checked="false">Wordmarks</button>
+      </div>
+      <div class="appearance__singles" role="radiogroup" aria-label="Single A">
+        {singles.map((mark) => (
+          <button
+            type="button"
+            role="radio"
+            data-logo-choice={mark.id}
+            data-logo-kind="single"
+            aria-checked={mark.id === "halftone" ? "true" : "false"}
+            aria-label={mark.label}
+            title={mark.label}
+          >
+            <img class="appearance__mono appearance__mono--night" src={mark.appleNight} alt="" width="180" height="180" />
+            <img class="appearance__mono appearance__mono--day" src={mark.appleDay} alt="" width="180" height="180" />
+          </button>
+        ))}
+      </div>
+      <div class="appearance__wordmarks" role="radiogroup" aria-label="Wordmarks">
+        {WORDMARKS.map((mark) => (
+          <button
+            type="button"
+            role="radio"
+            data-logo-choice={mark.id}
+            data-logo-kind="wordmark"
+            aria-checked="false"
+            aria-label={mark.label}
+            title={mark.label}
+          >
+            <img class="appearance__mark" src={mark.src} alt="" width="120" height="28" loading="lazy" />
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="nav-overlay" id="nav-overlay" hidden>
+  <div class="wrap">
+    <div class="nav-overlay__bar">
+      <button class="nav-overlay__side" id="close-menu" type="button">Close</button>
+      <p class="nav-overlay__title">{PRODUCT_LABEL}</p>
+      <span class="nav-overlay__side" aria-hidden="true"></span>
+    </div>
+    <div class="nav-overlay__scroll">
+      <ul class="nav-list">
+        {NAV.map((item) => (
+          <li>
+            <a href={item.href}>
+              {item.label}
+              {item.descriptor ? <span>{item.descriptor}</span> : null}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var root = document.documentElement;
+    var toggle = document.getElementById("appearance-toggle");
+    var panel = document.getElementById("appearance-panel");
+    var img = document.getElementById("site-wordmark");
+    var catalogNode = document.getElementById("wordmark-catalog");
+    var catalog = catalogNode ? JSON.parse(catalogNode.textContent || "[]") : [];
+
+    function logoHit(id) {
+      for (var i = 0; i < catalog.length; i++) if (catalog[i].id === id) return catalog[i];
+      return null;
+    }
+    function logoSrc(id) {
+      var hit = logoHit(id);
+      if (!hit) return "";
+      if (root.getAttribute("data-logo-form") === "wordmark") return hit.src;
+      var dark = root.getAttribute("data-theme") !== "light";
+      return dark ? hit.appleNight : hit.appleDay;
+    }
+    function paintForm(form, persist) {
+      if (form !== "wordmark") form = "single";
+      root.setAttribute("data-logo-form", form);
+      var choices = document.querySelectorAll("[data-logo-form-choice]");
+      for (var i = 0; i < choices.length; i++) {
+        choices[i].setAttribute("aria-checked", choices[i].getAttribute("data-logo-form-choice") === form ? "true" : "false");
+      }
+      if (persist) {
+        try { localStorage.setItem("artometrics-logo-form", form); } catch (e) {}
+      }
+    }
+    function paintLogo(id, persist) {
+      if (!logoHit(id)) id = "halftone";
+      var src = logoSrc(id);
+      root.setAttribute("data-logo", id);
+      if (img && src) {
+        if (img.getAttribute("src") !== src) img.setAttribute("src", src);
+        var single = root.getAttribute("data-logo-form") === "single";
+        img.setAttribute("width", single ? "180" : "600");
+        img.setAttribute("height", single ? "180" : "124");
+      }
+      if (persist) {
+        try { localStorage.setItem("artometrics-logo", id); } catch (e) {}
+      }
+      var logos = document.querySelectorAll("[data-logo-choice]");
+      var form = root.getAttribute("data-logo-form") || "single";
+      for (var i = 0; i < logos.length; i++) {
+        var same = logos[i].getAttribute("data-logo-choice") === id && logos[i].getAttribute("data-logo-kind") === form;
+        logos[i].setAttribute("aria-checked", same ? "true" : "false");
+      }
+      paintIcon();
+    }
+    function paintIcon() {
+      var id = root.getAttribute("data-logo") || "halftone";
+      var hit = catalog[0];
+      for (var i = 0; i < catalog.length; i++) if (catalog[i].id === id) hit = catalog[i];
+      if (!hit) return;
+      var dark = root.getAttribute("data-theme") !== "light";
+      var icon = document.getElementById("site-favicon");
+      var apple = document.getElementById("site-apple");
+      if (icon) icon.href = dark ? hit.monoNight : hit.monoDay;
+      if (apple) apple.href = dark ? hit.appleNight : hit.appleDay;
+    }
+    function paintTheme(theme, persist) {
+      if (theme !== "light") theme = "dark";
+      root.setAttribute("data-theme", theme);
+      root.style.colorScheme = theme === "light" ? "light" : "dark";
+      if (persist) {
+        try { localStorage.setItem("artometrics-theme", theme); } catch (e) {}
+      }
+      var modes = document.querySelectorAll("[data-theme-choice]");
+      for (var i = 0; i < modes.length; i++) {
+        modes[i].setAttribute("aria-checked", modes[i].getAttribute("data-theme-choice") === theme ? "true" : "false");
+      }
+      paintLogo(root.getAttribute("data-logo") || "halftone", false);
+    }
+    function openPanel() {
+      if (!panel || !toggle) return;
+      panel.hidden = false;
+      toggle.setAttribute("aria-expanded", "true");
+    }
+    function closePanel() {
+      if (!panel || !toggle) return;
+      panel.hidden = true;
+      toggle.setAttribute("aria-expanded", "false");
+    }
+    paintTheme(root.getAttribute("data-theme") || "dark", false);
+    paintForm(root.getAttribute("data-logo-form") || "wordmark", false);
+    paintLogo(root.getAttribute("data-logo") || "halftone", false);
+
+    toggle && toggle.addEventListener("click", function () {
+      if (!panel) return;
+      if (panel.hidden) openPanel();
+      else closePanel();
+    });
+    var modes = document.querySelectorAll("[data-theme-choice]");
+    for (var i = 0; i < modes.length; i++) {
+      modes[i].addEventListener("click", function (event) {
+        paintTheme(event.currentTarget.getAttribute("data-theme-choice"), true);
+      });
+    }
+    var forms = document.querySelectorAll("[data-logo-form-choice]");
+    for (var f = 0; f < forms.length; f++) {
+      forms[f].addEventListener("click", function (event) {
+        paintForm(event.currentTarget.getAttribute("data-logo-form-choice"), true);
+        paintLogo(root.getAttribute("data-logo") || "halftone", false);
+      });
+    }
+    var logos = document.querySelectorAll("[data-logo-choice]");
+    for (var j = 0; j < logos.length; j++) {
+      logos[j].addEventListener("click", function (event) {
+        var button = event.currentTarget;
+        paintForm(button.getAttribute("data-logo-kind") || "single", true);
+        paintLogo(button.getAttribute("data-logo-choice"), true);
+      });
+    }
+    document.addEventListener("click", function (event) {
+      if (!panel || panel.hidden) return;
+      var target = event.target;
+      if (panel.contains(target) || (toggle && toggle.contains(target))) return;
+      closePanel();
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && panel && !panel.hidden) {
+        closePanel();
+        toggle && toggle.focus();
+      }
+    });
+  })();
+</script>

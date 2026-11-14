@@ -1,0 +1,56 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  title="Artometrics Glossary"
+  description="An encyclopedia and style board: expert, modern-context entries for people, events, and visual languages."
+  path="/"
+>
+  <div class="wrap">
+    <header class="home-hero">
+      <p class="product-kicker">Glossary</p>
+      <h1>The encyclopedia of looking.</h1>
+      <p class="lede">
+        Names, figures, events, and styles — written as a modern-context reading, not a
+        recap of the usual biography. Each entry should feel like what an expert would actually
+        tell you: how they lived, how that formed the work, and what the sources will and will
+        not support.
+      </p>
+    </header>
+
+    <div class="section-head">
+      <h2>Encyclopedia</h2>
+      <p>People, figures, events</p>
+    </div>
+    <div class="card-grid">
+      <a class="teaser" href="/entries/leonardo-da-vinci">
+        <span class="teaser__kind">Entry</span>
+        <h2>Leonardo da Vinci</h2>
+        <p>Anatomy, water, and paint like smoke — a modern-context reading of the first art-scientist.</p>
+      </a>
+      <div class="teaser teaser--placeholder">
+        <span class="teaser__kind">Coming next</span>
+        <h2>Frida Kahlo</h2>
+        <p>Placeholder for a life-story entry: the accident, the marriage, the pain, and the work that followed.</p>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <h2>Style board</h2>
+      <p>History, figures, examples, files</p>
+    </div>
+    <div class="card-grid">
+      <a class="teaser" href="/styles/sfumato">
+        <span class="teaser__kind">Style</span>
+        <h2>Sfumato</h2>
+        <p>The smoky edge: history, the people who used it, a gallery, and files you can pull into a project.</p>
+      </a>
+      <div class="teaser teaser--placeholder">
+        <span class="teaser__kind">Coming next</span>
+        <h2>More styles</h2>
+        <p>Placeholder for additional boards — a name, a short history, examples, and downloadable templates.</p>
+      </div>
+    </div>
+  </div>
+</Base>
